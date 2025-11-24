@@ -15,7 +15,7 @@ function Home() {
       color: "from-green-500/10 to-green-500/30",
     },
     {
-      title: "Pending Tasks",
+      title: "Pending Letter",
       value: "27",
       icon: <Clock className="text-yellow-500" size={28} />,
       color: "from-yellow-500/10 to-yellow-500/30",
