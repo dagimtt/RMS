@@ -12,6 +12,10 @@ function AddIncoming() {
     scan: null,
   });
 
+  const [loading, setLoading] = useState(false); // Track form submission
+  const [error, setError] = useState(null); // Track errors
+  const [success, setSuccess] = useState(null); // Track success
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prev) => ({
@@ -20,10 +24,49 @@ function AddIncoming() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Incoming Letter Submitted:", formData);
-    alert("Incoming letter added successfully!");
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const data = new FormData();
+      data.append("ref_num", formData.ref_num);
+      data.append("from", formData.from);
+      data.append("to", formData.to);
+      data.append("subject", formData.subject);
+      data.append("date", formData.date);
+      data.append("description", formData.description);
+      if (formData.scan) data.append("scan", formData.scan);
+
+      const res = await fetch("http://localhost:5000/api/letters", {
+        method: "POST",
+        body: data,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Failed to submit letter");
+      }
+
+      const result = await res.json();
+      setSuccess(result.message);
+      setFormData({
+        ref_num: "",
+        from: "",
+        to: "",
+        subject: "",
+        date: "",
+        description: "",
+        scan: null,
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,6 +79,7 @@ function AddIncoming() {
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 max-w-3xl mx-auto space-y-6"
       >
+        {/* Ref Number & Date */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-2">Ref Number</label>
@@ -49,7 +93,6 @@ function AddIncoming() {
               required
             />
           </div>
-
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-2">Date</label>
             <input
@@ -63,6 +106,7 @@ function AddIncoming() {
           </div>
         </div>
 
+        {/* From & To */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-2">From</label>
@@ -76,7 +120,6 @@ function AddIncoming() {
               required
             />
           </div>
-
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-2">To</label>
             <input
@@ -91,6 +134,7 @@ function AddIncoming() {
           </div>
         </div>
 
+        {/* Subject */}
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2">Subject</label>
           <input
@@ -104,6 +148,7 @@ function AddIncoming() {
           />
         </div>
 
+        {/* Description */}
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2">Description / Remark</label>
           <textarea
@@ -116,6 +161,7 @@ function AddIncoming() {
           ></textarea>
         </div>
 
+        {/* File Upload */}
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2">Scan Document</label>
           <label className="flex items-center justify-center w-full px-4 py-4 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition">
@@ -127,12 +173,18 @@ function AddIncoming() {
           </label>
         </div>
 
+        {/* Success/Error Messages */}
+        {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
+        {success && <p className="text-green-600 dark:text-green-400">{success}</p>}
+
+        {/* Submit Button */}
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition"
+            disabled={loading}
+            className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            Save Letter
+            {loading ? "Saving..." : "Save Letter"}
           </button>
         </div>
       </form>
