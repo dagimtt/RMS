@@ -3,7 +3,7 @@ import { Eye, Plus, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function OutgoingRecords() {
-  const navigate = useNavigate(); // ✅ Add this
+  const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
     query: "",
@@ -34,24 +34,24 @@ function OutgoingRecords() {
   };
 
   const handleAddClick = () => {
-    navigate("/add-outgoing"); // ✅ Works now
+    navigate("/add-outgoing");
   };
 
   const statusColor = (status) => {
     switch (status) {
       case "Approved":
-        return "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100";
+        return "bg-green-100 text-green-800";
       case "Rejected":
-        return "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100";
+        return "bg-red-100 text-red-800";
       default:
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100";
+        return "bg-yellow-100 text-yellow-800";
     }
   };
 
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-extrabold text-gray-800 dark:text-white">Outgoing Letters</h2>
+        <h2 className="text-3xl font-extrabold text-gray-800">Outgoing Letters</h2>
         <button
           onClick={handleAddClick}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition"
@@ -60,9 +60,9 @@ function OutgoingRecords() {
         </button>
       </div>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400 mb-4">View and manage all outgoing letters</p>
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <p className="text-gray-600 mb-4">View and manage all outgoing letters</p>
 
           {/* Filter Bar */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -74,7 +74,7 @@ function OutgoingRecords() {
                 placeholder="Search by Ref Number, From, To, or Main Idea"
                 value={filters.query}
                 onChange={handleChange}
-                className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
@@ -82,7 +82,7 @@ function OutgoingRecords() {
               name="status"
               value={filters.status}
               onChange={handleChange}
-              className="w-full py-2 px-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full py-2 px-3 rounded-lg border border-gray-300 bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               <option value="">All Status</option>
               <option value="Pending">Pending</option>
@@ -94,7 +94,7 @@ function OutgoingRecords() {
 
         {/* Table */}
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
               <tr>
                 {["ID", "Ref_num", "From", "To", "Main idea", "Status", "Action"].map((header) => (
@@ -104,15 +104,15 @@ function OutgoingRecords() {
                 ))}
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-white divide-y divide-gray-200">
               {filteredRecords.length > 0 ? (
                 filteredRecords.map((record, idx) => (
-                  <tr key={record.id} className={`${idx % 2 === 0 ? "bg-gray-50 dark:bg-gray-800" : ""} hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200`}>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{record.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{record.ref_num}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{record.from}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{record.to}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{record.main_idea}</td>
+                  <tr key={record.id} className={`${idx % 2 === 0 ? "bg-gray-50" : ""} hover:bg-gray-100 transition-colors duration-200`}>
+                    <td className="px-6 py-4 text-sm text-gray-900">{record.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{record.ref_num}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{record.from}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{record.to}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{record.main_idea}</td>
                     <td className="px-6 py-4 text-sm">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColor(record.status)}`}>
                         {record.status}
@@ -127,7 +127,7 @@ function OutgoingRecords() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No matching records found</td>
+                  <td colSpan="7" className="px-6 py-4 text-center text-gray-500">No matching records found</td>
                 </tr>
               )}
             </tbody>

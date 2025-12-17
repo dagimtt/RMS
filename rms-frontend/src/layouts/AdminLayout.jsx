@@ -6,14 +6,17 @@ import Footer from "../components/admincomponents/Footer";
 
 export default function AdminLayout() {
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen flex flex-col transition-colors duration-300">
+    <div className="bg-gray-50 min-h-screen flex flex-col">
       <Header />
+
       <div className="flex flex-1 pt-16">
         <Sidebar />
-        <main className="flex-1 p-6 md:ml-64 transition-all duration-300">
-          <Outlet /> {/* This renders nested routes */}
+
+        <main className="flex-1 p-6 md:ml-64">
+          <Outlet />
         </main>
       </div>
+
       <Footer />
     </div>
   );

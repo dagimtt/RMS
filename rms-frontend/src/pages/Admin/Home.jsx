@@ -40,7 +40,7 @@ function Home() {
   return (
     <div className="space-y-5 animate-fadeIn">
       {/* Welcome Header */}
-      <div className=" ">
+      <div>
         <h2 className="text-1xl font-semibold mb-1">RMS Dashboard</h2>
       </div>
 
@@ -49,18 +49,18 @@ function Home() {
         {stats.map((card) => (
           <div
             key={card.title}
-            className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.color} dark:from-gray-900 dark:to-gray-800 p-6 shadow hover:shadow-xl hover:scale-[1.02] transition-all`}
+            className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.color} p-6 shadow hover:shadow-xl hover:scale-[1.02] transition-all`}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
+                <p className="text-gray-700 font-medium">
                   {card.title}
                 </p>
-                <h3 className="text-4xl font-bold text-gray-900 dark:text-white mt-2">
+                <h3 className="text-4xl font-bold text-gray-900 mt-2">
                   {card.value}
                 </h3>
               </div>
-              <div className="bg-white/70 dark:bg-gray-800/50 p-3 rounded-xl">
+              <div className="bg-white/70 p-3 rounded-xl">
                 {card.icon}
               </div>
             </div>
@@ -69,25 +69,25 @@ function Home() {
       </div>
 
       {/* Letter Archive Cards */}
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-4">
+      <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-4">
         Letter Archive
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {letterStats.map((card) => (
           <div
             key={card.title}
-            className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.color} dark:from-gray-900 dark:to-gray-800 p-6 shadow hover:shadow-xl hover:scale-[1.02] transition-all`}
+            className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.color} p-6 shadow hover:shadow-xl hover:scale-[1.02] transition-all`}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
+                <p className="text-gray-700 font-medium">
                   {card.title}
                 </p>
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
+                <h3 className="text-3xl font-bold text-gray-900 mt-2">
                   {card.value}
                 </h3>
               </div>
-              <div className="bg-white/70 dark:bg-gray-800/50 p-3 rounded-xl">
+              <div className="bg-white/70 p-3 rounded-xl">
                 {card.icon}
               </div>
             </div>
@@ -96,11 +96,11 @@ function Home() {
       </div>
 
       {/* Quick Overview Section */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-8 transition-all">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      <div className="bg-white rounded-2xl shadow p-8 transition-all">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
           System Overview
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+        <p className="text-gray-600 leading-relaxed">
           The RMS Dashboard provides a centralized platform for managing
           organizational records, user activity, and report generation.
           Navigate using the sidebar to access different modules and track

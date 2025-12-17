@@ -18,7 +18,6 @@ const pool = new Pool({
   password: "5294",
   port: 5432,
 });
-
 // File upload config (stores uploaded scans in /uploads/)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -68,7 +67,7 @@ app.post("/api/letters", upload.single("scan"), async (req, res) => {
 app.get("/api/letters", async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT  id, ref_num, from_person, to_person, date, main_idea, description, letter_type, status, scan_path 
+      `SELECT ref_num, from_person, to_person, date, main_idea, description, letter_type, status, scan_path 
        FROM letters ORDER BY date DESC`
     );
     res.json(result.rows);

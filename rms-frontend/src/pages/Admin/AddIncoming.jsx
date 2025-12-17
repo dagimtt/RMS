@@ -71,36 +71,36 @@ function AddIncoming() {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-extrabold text-gray-800 dark:text-white mb-6">
+      <h2 className="text-3xl font-extrabold text-gray-800 mb-6">
         Add Incoming Letter
       </h2>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 max-w-3xl mx-auto space-y-6"
+        className="bg-white rounded-2xl shadow-lg p-8 max-w-3xl mx-auto space-y-6"
       >
         {/* Ref Number & Date */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Ref Number</label>
+            <label className="block text-gray-700 mb-2">Ref Number</label>
             <input
               type="text"
               name="ref_num"
               value={formData.ref_num}
               onChange={handleChange}
               placeholder="Enter reference number"
-              className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Date</label>
+            <label className="block text-gray-700 mb-2">Date</label>
             <input
               type="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -109,26 +109,26 @@ function AddIncoming() {
         {/* From & To */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">From</label>
+            <label className="block text-gray-700 mb-2">From</label>
             <input
               type="text"
               name="from"
               value={formData.from}
               onChange={handleChange}
               placeholder="Sender name"
-              className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">To</label>
+            <label className="block text-gray-700 mb-2">To</label>
             <input
               type="text"
               name="to"
               value={formData.to}
               onChange={handleChange}
               placeholder="Recipient name"
-              className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -136,37 +136,37 @@ function AddIncoming() {
 
         {/* Subject */}
         <div>
-          <label className="block text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+          <label className="block text-gray-700 mb-2">Subject</label>
           <input
             type="text"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
             placeholder="Enter subject"
-            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-gray-700 dark:text-gray-300 mb-2">Description / Remark</label>
+          <label className="block text-gray-700 mb-2">Description / Remark</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Write short description or remark..."
             rows="4"
-            className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
           ></textarea>
         </div>
 
         {/* File Upload */}
         <div>
-          <label className="block text-gray-700 dark:text-gray-300 mb-2">Scan Document</label>
-          <label className="flex items-center justify-center w-full px-4 py-4 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition">
+          <label className="block text-gray-700 mb-2">Scan Document</label>
+          <label className="flex items-center justify-center w-full px-4 py-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition">
             <Upload className="text-blue-500 mr-2" />
-            <span className="text-gray-600 dark:text-gray-300">
+            <span className="text-gray-600">
               {formData.scan ? formData.scan.name : "Upload scanned file"}
             </span>
             <input type="file" name="scan" onChange={handleChange} className="hidden" />
@@ -174,8 +174,8 @@ function AddIncoming() {
         </div>
 
         {/* Success/Error Messages */}
-        {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
-        {success && <p className="text-green-600 dark:text-green-400">{success}</p>}
+        {error && <p className="text-red-600">{error}</p>}
+        {success && <p className="text-green-600">{success}</p>}
 
         {/* Submit Button */}
         <div className="flex justify-end">
