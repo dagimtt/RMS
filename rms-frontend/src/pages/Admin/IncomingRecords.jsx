@@ -130,15 +130,34 @@ function IncomingRecords() {
               {record.status}
             </span>
           </td>
-          <td className="px-6 py-4 text-sm">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg flex items-center justify-center"
-              title="View Details"
-              onClick={() => window.open(`http://localhost:5000/${record.scan_path}`, "_blank")}
-            >
-              <Eye size={18} />
-            </button>
-          </td>
+          <td className="px-6 py-4 text-sm flex gap-2">
+  {/* View */}
+  <button
+    className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg"
+    title="View Details"
+   onClick={() => navigate(`/incoming-detail/${record.id}`)}
+
+  >
+    <Eye size={18} />
+  </button>
+
+  {/* Reply */}
+  <button
+    className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium"
+    title="Reply"
+    onClick={() =>
+      navigate("/add-outgoing", {
+        state: {
+          reply_num: record.reply_num,
+          incoming_id: record.id,
+        },
+      })
+    }
+  >
+    Reply
+  </button>
+</td>
+
         </tr>
       ))
     ) : (
@@ -147,6 +166,7 @@ function IncomingRecords() {
           No matching records found
         </td>
       </tr>
+      
     )}
   </tbody>
 </table>

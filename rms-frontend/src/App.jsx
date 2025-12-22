@@ -10,7 +10,8 @@ import IncomingRecords from "./pages/Admin/IncomingRecords";
 import OutgoingRecords from "./pages/Admin/OutgoingRecords";
 import AddIncoming from "./pages/Admin/AddIncoming";
 import AddOutgoing from "./pages/Admin/AddOutgoing";
-
+import Detail from "./pages/Admin/Detail.jsx"
+import OutgoingDetail from "./pages/Admin/OutgoingDetail"
 import Login from "./auth/Login";
 
 import DirectorHome from "./pages/Director/DirectorHome";
@@ -35,6 +36,8 @@ function App() {
           <Route path="outgoing" element={<OutgoingRecords />} />
           <Route path="add-incoming" element={<AddIncoming />} />
           <Route path="add-outgoing" element={<AddOutgoing />} />
+          <Route path="/incoming-detail/:id" element={<Detail />} />
+          <Route path="/outgoing-detail/:id" element={<OutgoingDetail />} />
         </Route>
 
         {/* Director layout routes */}
