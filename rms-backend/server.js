@@ -4,7 +4,7 @@ const multer = require("multer");
 const { Pool } = require("pg");
 const fs = require("fs");
 const path = require("path");
-
+const bcrypt = require("bcrypt");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -219,7 +219,46 @@ app.get("/api/dashboard-stats", async (req, res) => {
   }
 });
 
+// get all user
+app.get("/api/users", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, first_name, last_name, email, role, created_at FROM users ORDER BY id DESC"
+    );
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
+// add user
+app.post("/api/users", async (req, res) => {
+  const { first_name, last_name, email, password, role } = req.body;
+
+  if (!first_name || !last_name || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      `INSERT INTO users (first_name, last_name, email, password, role)
+       VALUES ($1,$2,$3,$4,$5)`,
+      [first_name, last_name, email, hashedPassword, role || "user"]
+    );
+
+    res.json({ message: "User added successfully" });
+  } catch (err) {
+    console.error("Add user error:", err);
+
+    if (err.code === "23505") {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 // -------------------------

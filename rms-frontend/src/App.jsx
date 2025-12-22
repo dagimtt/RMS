@@ -12,12 +12,15 @@ import AddIncoming from "./pages/Admin/AddIncoming";
 import AddOutgoing from "./pages/Admin/AddOutgoing";
 import Detail from "./pages/Admin/Detail.jsx"
 import OutgoingDetail from "./pages/Admin/OutgoingDetail"
+import Users from "./pages/Admin/Users.jsx";
+import AddUser from "./pages/Admin/AddUser.jsx";
 import Login from "./auth/Login";
 
 import DirectorHome from "./pages/Director/DirectorHome";
 import DirectorProfile from "./pages/Director/DirectorProfile";
 import DirectorIncoming from "./pages/Director/DirectorIncoming";
 import DirectorAddLetter from "./pages/Director/DirectorAddLetter";
+
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
           <Route path="add-outgoing" element={<AddOutgoing />} />
           <Route path="/incoming-detail/:id" element={<Detail />} />
           <Route path="/outgoing-detail/:id" element={<OutgoingDetail />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/add-user" element={<AddUser />} />
+
         </Route>
 
         {/* Director layout routes */}
