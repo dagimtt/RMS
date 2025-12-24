@@ -165,7 +165,6 @@ app.get("/api/outgoing", async (req, res) => {
 });
 
 
-
 // Get single outgoing letter by ID
 app.get("/api/outgoing/:id", async (req, res) => {
   try {
@@ -219,11 +218,30 @@ app.get("/api/dashboard-stats", async (req, res) => {
   }
 });
 
+// Update user status
+app.put("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) return res.status(400).json({ error: "Status is required" });
+
+  try {
+    await pool.query(
+      "UPDATE users SET status = $1 WHERE id = $2",
+      [status, id]
+    );
+    res.json({ message: "Status updated successfully", status });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update status" });
+  }
+});
+
 // get all user
 app.get("/api/users", async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT id, first_name, last_name, email, role, created_at FROM users ORDER BY id DESC"
+      "SELECT id, first_name, last_name, email, role,status, created_at FROM users ORDER BY id DESC"
     );
     res.json(result.rows);
   } catch (err) {
@@ -233,7 +251,7 @@ app.get("/api/users", async (req, res) => {
 
 // add user
 app.post("/api/users", async (req, res) => {
-  const { first_name, last_name, email, password, role } = req.body;
+  const { first_name, last_name, email, password, role,status } = req.body;
 
   if (!first_name || !last_name || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -243,8 +261,8 @@ app.post("/api/users", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await pool.query(
-      `INSERT INTO users (first_name, last_name, email, password, role)
-       VALUES ($1,$2,$3,$4,$5)`,
+      `INSERT INTO users (first_name, last_name, email, password, role,status)
+       VALUES ($1,$2,$3,$4,$5,"active")`,
       [first_name, last_name, email, hashedPassword, role || "user"]
     );
 
@@ -257,6 +275,53 @@ app.post("/api/users", async (req, res) => {
     }
 
     res.status(500).json({ error: err.message });
+  }
+});
+
+
+
+
+
+
+
+// Get all records (Incoming + Outgoing)
+app.get("/api/records", async (req, res) => {
+  try {
+    const query = `
+      SELECT
+        id,
+        reply_num,
+        ref_num,
+        from_person AS "from",
+        to_person AS "to",
+        main_idea,
+        letter_type,
+        status,
+        date
+      FROM letters
+
+      UNION ALL
+
+      SELECT
+        id,
+        reply_num,
+        ref_num,
+        from_person AS "from",
+        to_person AS "to",
+        main_idea,
+        'Outgoing' AS letter_type,
+        status,
+        date
+      FROM outgoing
+
+      ORDER BY date DESC
+    `;
+
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch records" });
   }
 });
 
