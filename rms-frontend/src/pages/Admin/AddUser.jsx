@@ -42,7 +42,7 @@ function AddUser() {
       body: JSON.stringify(payload),
     });
 
-    navigate("/users");
+    navigate("/admin/users");
   };
 
   return (

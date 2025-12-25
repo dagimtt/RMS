@@ -47,7 +47,7 @@ function OutgoingRecords() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddClick = () => navigate("/add-outgoing");
+  const handleAddClick = () => navigate("/admin/add-outgoing");
 
   const statusColor = (status) => {
     switch (status) {
@@ -150,7 +150,7 @@ function OutgoingRecords() {
                       <td className="px-6 py-4 text-sm">
                         <button
                           onClick={() =>
-                            navigate(`/outgoing-detail/${record.id}`)
+                            navigate(`/admin/outgoing-detail/${record.id}`)
                           }
                           className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg"
                         >

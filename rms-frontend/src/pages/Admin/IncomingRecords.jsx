@@ -37,7 +37,7 @@ function IncomingRecords() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddClick = () => navigate("/add-incoming");
+  const handleAddClick = () => navigate("/admin/add-incoming");
 
   const statusColor = (status) => {
     switch (status) {
@@ -135,7 +135,7 @@ function IncomingRecords() {
   <button
     className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg"
     title="View Details"
-   onClick={() => navigate(`/incoming-detail/${record.id}`)}
+   onClick={() => navigate(`/admin/incoming-detail/${record.id}`)}
 
   >
     <Eye size={18} />
@@ -146,7 +146,7 @@ function IncomingRecords() {
     className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium"
     title="Reply"
     onClick={() =>
-      navigate("/add-outgoing", {
+      navigate("/admin/add-outgoing", {
         state: {
           reply_num: record.reply_num,
           incoming_id: record.id,
